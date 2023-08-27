@@ -24,6 +24,7 @@ spec:
         apiVersion: apps/v1
         metadata:
           name: helloworld-hello-world
+          namespace: default
           labels:
             my.label.local: mylocalchart
             our.label.local: ourlocalchart
@@ -34,6 +35,7 @@ spec:
         apiVersion: v1
         metadata:
           name: helloworld-hello-world
+          namespace: default
           labels:
             mysvc.label.local: mysvclocalchart
             oursvc.label.local: ourlocalchartsvc
