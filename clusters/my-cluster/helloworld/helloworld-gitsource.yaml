@@ -1,0 +1,18 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: GitRepository
+metadata:
+  name: helloworld-kube-manifest
+  namespace: flux-system
+spec:
+  interval: 1m
+  url: https://github.com/ShubhamHirau/helmtest2.git
+  # secretRef:
+  #   name: flux-system
+  ref:
+    branch: main
+    # commit: f16501c96b99c643217cf078e00b84b94a4dfd7c
+  # ignore: |
+  #   exclude all
+  #   /*
+  #   include helm directory
+  #   !/clusters/my-cluster/podinfo/chart/

@@ -1,0 +1,46 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: helloworld
+  namespace: flux-system
+spec:
+  targetNamespace: default
+  interval: 1m
+  chart:
+    spec:
+      reconcileStrategy: Revision
+      chart: ./clusters/my-cluster/helloworld/chart/
+      sourceRef:
+        kind: GitRepository
+        name: helloworld-kube-manifest
+        namespace: flux-system
+      interval: 1m
+      valuesFiles:
+        - ./clusters/my-cluster/helloworld/chart/values.yaml
+  postRenderers:
+  - kustomize:
+      patchesStrategicMerge:
+      - kind: Deployment
+        apiVersion: apps/v1
+        metadata:
+          name: helloworld-hello-world
+          labels:
+            my.label.local: mylocalchart
+            our.label.local: ourlocalchart
+        spec:
+          revisionHistoryLimit: 8
+          replicas: 2
+      - kind: Service
+        apiVersion: v1
+        metadata:
+          name: helloworld-hello-world
+          labels:
+            mysvc.label.local: mysvclocalchart
+            oursvc.label.local: ourlocalchartsvc
+        spec:
+          type: NodePort
+  values:
+    image:
+      repository: nginx
+      pullPolicy: IfNotPresent
+      tag: "1.16.1-alpine"
