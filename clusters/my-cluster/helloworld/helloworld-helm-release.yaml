@@ -40,6 +40,16 @@ spec:
             oursvc.label.local: ourlocalchartsvc
         spec:
           type: NodePort
+      - kind: ServiceAccount
+        apiVersion: v1
+        metadata:
+          annotations:
+            mysa.annoottaa.local: saannoottahelloworld
+          labels:
+            mysa.label.local: salabelhelloworld
+          name: helloworld-hello-world
+        secrets:
+        - name: helloworld-hello-world-token-d48wc      
   values:
     image:
       repository: nginx
