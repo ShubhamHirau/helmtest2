@@ -17,27 +17,27 @@ spec:
       interval: 1m
       valuesFiles:
         - ./clusters/my-cluster/helloworld/chart/values.yaml
-  postRenderers:
-  - kustomize:
-      patchesStrategicMerge:
-      - kind: Deployment
-        apiVersion: apps/v1
-        metadata:
-          name: helloworld-hello-world
-          labels:
-            my.label.local: mylocalchart
-            our.label.local: ourlocalchart
-        spec:
-          replicas: 2
-      - kind: Service
-        apiVersion: v1
-        metadata:
-          name: helloworld-hello-world
-          labels:
-            mysvc.label.local: mysvclocalchart
-            oursvc.label.local: ourlocalchartsvc
-        spec:
-          type: NodePort
+  # postRenderers:
+  # - kustomize:
+  #     patchesStrategicMerge:
+  #     - kind: Deployment
+  #       apiVersion: apps/v1
+  #       metadata:
+  #         name: helloworld-hello-world
+  #         labels:
+  #           my.label.local: mylocalchart
+  #           our.label.local: ourlocalchart
+  #       spec:
+  #         replicas: 2
+  #     - kind: Service
+  #       apiVersion: v1
+  #       metadata:
+  #         name: helloworld-hello-world
+  #         labels:
+  #           mysvc.label.local: mysvclocalchart
+  #           oursvc.label.local: ourlocalchartsvc
+  #       spec:
+  #         type: NodePort
   values:
     image:
       repository: nginx
